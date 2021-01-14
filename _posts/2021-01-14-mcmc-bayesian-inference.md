@@ -166,7 +166,7 @@ Correspondingly, the acceptance ratio is,
 
 $$
 \begin{align}
-r(\theta^*, \theta_t) &= \exp(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta_t|x)}}) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)} \\
+r(\theta^*, \theta_t) &= \exp\left(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta_t|x)}}\right) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)} \\
 &= \exp(\ln{f(\theta^*|x)} - \ln{f(\theta_t|x)}) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)}
 \end{align}
 $$
