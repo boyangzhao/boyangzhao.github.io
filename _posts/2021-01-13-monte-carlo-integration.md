@@ -51,7 +51,7 @@ by the expected value of the function over the domain.
 ## Example | Univariate
 
 As an example, in python, we can perform the following to approximate the
-integration of *f(x)=x²* from -2 to 2.
+integration of *f(x)=x<sup>2</sup>* from -2 to 2.
 
 ```python
 import numpy as np
@@ -86,7 +86,7 @@ Monte Carlo solution:  5.3323
 Analytical solution:  5.3333  
 
 where the Monte Carlo approximation is very close to the analytical solution.
-Visually, the integration of *f(x)=x²* from -2 to 2 is shown below in blue. The
+Visually, the integration of *f(x)=x<sup>2</sup>* from -2 to 2 is shown below in blue. The
 approximation is the rectangle highlighted in red.
 
 ![](/images/mci_univariate.png){: .align-center}
@@ -136,12 +136,12 @@ print(f"Analytical solution: 384.000")
 The results
 
 {: .notice--info}
-For f(x)= 10 - x1² - x2², integrated from -2 to 2 (for all x's)  
+For f(x)= 10 - x1<sup>2</sup> - x2<sup>2</sup>, integrated from -2 to 2 (for all x's)  
 Monte Carlo solution:  117.346  
 Analytical solution: 117.333
 
 {: .notice--info}
-For f(x)= 10 - x1² - x2² - x3², integrated from -2 to 2 (for all x's)  
+For f(x)= 10 - x1<sup>2</sup> - x2<sup>2</sup> - x3<sup>2</sup>, integrated from -2 to 2 (for all x's)  
 Monte Carlo solution:  383.888  
 Analytical solution: 384.000  
 
@@ -154,7 +154,7 @@ nonetheless  the same — with uniform sampling, we wish to sample over the doma
 approximate the integration via the product of the domain volume and expected value of 
 the function over the domain.
 
-Let’s use the same bivariate function *f(x)*=10-x1²-x2² and integrate over a
+Let’s use the same bivariate function *f(x)*=10-x1<sup>2</sup>-x2<sup>2</sup> and integrate over a
 unit circle. Uniform sampling over exactly the unit circle is harder than just
 sampling over a square region (that covers the unit circle). From this we can 1)
 calculate the area of the domain as the product of the area of the sampled
@@ -209,7 +209,7 @@ print(f"Analytical solution: 29.845")
 With results as,
 
 {: .notice--info}
-For f(x)= 10 - x1² - x2², integrated over unit circle  
+For f(x)= 10 - x1<sup>2</sup> - x2<sup>2</sup>, integrated over unit circle  
 Monte Carlo solution:  29.849  
 Analytical solution: 29.845  
 

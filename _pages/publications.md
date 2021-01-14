@@ -5,7 +5,7 @@ permalink: /publications/
 classes: wide
 ---
 
-**Peer-Reviewed Journal/Proceeding Articles**  
+**Peer-Reviewed Journal/Proceedings Articles**  
 
 <style type='text/css'>
 .bibbase_stats_paper { display: none; }

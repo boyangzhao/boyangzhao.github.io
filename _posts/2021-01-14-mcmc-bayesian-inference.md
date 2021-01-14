@@ -83,13 +83,13 @@ change the notations to that in the context of Bayesian inference,
 1. Initialize to some values of *θ*
 2. For *t* = 1, 2, 3, … *N*
 
-    a. Propose new *θ* *based on a proposal distribution *q*
+    a. Propose new *θ* based on a proposal distribution *q*
 
     b. Calculate the acceptance ratio *r* and acceptance probability *A*
 
     ![](/images/mcmc_eq_acc2.png){: .align-center}
 
-    c. Accept the new *θ* *according to acceptance probability A
+    c. Accept the new *θ* according to acceptance probability A
 
 Here we are defining *f* as the unnormalized posterior, where,
 
@@ -119,7 +119,7 @@ independent. It can be shown that the error of the estimation in MCMC is,
 
 where 𝜏 is the integrated autocorrelation time of the chain and represents the
 steps needed before it is no longer dependent. In fact this is not so different
-from the variance of a sampling distribution *σ²*/*N*, except now we are using
+from the variance of a sampling distribution *σ<sup>2</sup>*/*N*, except now we are using
 an effective sample size (*N*/*𝜏*) to account for the autocorrelation. Thus, to
 minimize error, either we need to reduce the autocorrelation and/or increase the
 number of samples. It is briefly worth mentioning that an approach to reduce
@@ -140,7 +140,7 @@ Raftery and Lewis (1992), Heidelberger-Welch (1981; 1983).
 
 If we are going to implement the above steps, there is another consideration we
 need to mention. With many data samples, the likelihood term *p(X|θ)* is
-the product of all the *p(Xᵢ|θ)* likelihoods (of each sample). Multiplying
+the product of all the *p(X<sub>i</sub>|θ)* likelihoods (of each sample). Multiplying
 many probabilities for simulation will lead to very small numbers. Instead, for
 numerical stability during computational simulation, we need to use the log
 transform instead. This means we are calculating the log of unnormalized
@@ -179,7 +179,7 @@ describes then how far the new *θ\** proposal is likely to be from the current
 proposed *θ*.
 
 Since the proposal distribution is symmetric, the MH algorithm below technically
-reduces to the Metropolis algorithm. The *q(θₜ|θ\*)*/*q(θ\*|θₜ)* ratio is still
+reduces to the Metropolis algorithm. The *q(θ<sub>t</sub>|θ\*)*/*q(θ\*|θ<sub>t</sub>)* ratio is still
 included in the code below for didactic purposes,
 
 ```python
