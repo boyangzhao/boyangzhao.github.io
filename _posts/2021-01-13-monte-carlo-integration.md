@@ -2,48 +2,63 @@
 layout: single
 title:  Monte Carlo integration in python over univariate and multivariate functions
 date:   2021-01-13
+mathjax: true
 ---
 
 Monte Carlo integration is a basic Monte Carlo method for numerically estimating
-the integration of a function *f(x)*. We will discuss here the theory along with
+the integration of a function $$f(x)$$. We will discuss here the theory along with
 examples in python.
 
 ## Theory
 
-Suppose we want to solve the integration of *f(x)* over a domain *D*.
+Suppose we want to solve the integration of $$f(x)$$ over a domain $$D$$.
 
-![](/images/mci_eq01.png){: .align-center}
+$$I = \int_{\boldsymbol{x} \in D} f(\boldsymbol{x}) \,d\boldsymbol{x}$$
 
 In the case of a univariate function (i.e. with one variable), the domain is
-simply one dimensional and the integration is from *a* to *b*.
+simply one dimensional and the integration is from $$a$$ to $$b$$.
 
 We can rearrange some terms and express the above equation as,
 
-![](/images/mci_eq02.png){: .align-center}
+$$
+I = \int_{\boldsymbol{x} \in D} \frac{f(\boldsymbol{x})}{p(\boldsymbol{x})} p(\boldsymbol{x}) \,d\boldsymbol{x}
+= \int_{\boldsymbol{x} \in D} g(\boldsymbol{x})p(\boldsymbol{x}) \,d\boldsymbol{x}
+= E[ g(\boldsymbol{x}) ] 
+$$
 
 In other words, the integration is equivalent to finding the expected value of
-*g(x)*, where we have defined *g(x)=f(x)/p(x)* over a domain. We can approximate
-this by sampling *x* from the domain for *N* times, which means,
+$$g(x)$$, where we have defined $$g(x)=f(x)/p(x)$$ over a domain. We can approximate
+this by sampling $$x$$ from the domain for $$N$$ times, which means,
 
-![](/images/mci_eq_approx.png){: .align-center}
+$$
+E[ g(\boldsymbol{x}) ] \approx \frac{1}{N} \sum_{i=1}^{N} g(\boldsymbol{x}_i)
+= \frac{1}{N} \sum_{i=1}^{N} \frac{f(\boldsymbol{x}_i)}{p(\boldsymbol{x}_i)}
+$$
 
 If we are sampling from a uniform distribution, and let say the function is
-univariate, this means the probability of drawing any given *x* is simply
-*p(x)=1/(b-a)*. If we substitute this into the above approximation expression,
+univariate, this means the probability of drawing any given $$x$$ is simply
+$$p(x)=1/(b-a)$$. If we substitute this into the above approximation expression,
 we see that,
 
-![](/images/mci_eq_approx_uniform.png){: .align-center}
+$$
+\begin{align}
+I &= \int_a^b f(x) \,dx \\
+\hat{I} &= (b-a) \frac{1}{N} \sum_{i=1}^{N} f(x_i)
+\end{align}
+$$
 
-This is effectively calculating the mean value of *f(x)* over the interval *a*
-to *b* and multiplying by the length of the interval. In other words, we are
+This is effectively calculating the mean value of $$f(x)$$ over the interval $$a$$
+to $$b$$ and multiplying by the length of the interval. In other words, we are
 finding the area of a rectangle with width = interval width and height =
-expected value of *f(x)*.
+expected value of $$f(x)$$.
 
 This also works with any dimensions. In case of a univariate function, the
-domain is simply a line (i.e. *b-a*). For a bivariate function, the domain is
+domain is simply a line (i.e. $$b-a$$). For a bivariate function, the domain is
 the area. Generally,
 
-![](/images/mci_eq_approx_uniform_multi.png){: .align-center}
+$$
+\hat{I} = V \frac{1}{N} \sum_{i=1}^{N} f(\boldsymbol{x}_i)
+$$
 
 This means we can approximate the integration by multiplying the domain volume
 by the expected value of the function over the domain.
@@ -51,7 +66,7 @@ by the expected value of the function over the domain.
 ## Example | Univariate
 
 As an example, in python, we can perform the following to approximate the
-integration of *f(x)=x<sup>2</sup>* from -2 to 2.
+integration of $$f(x)=x^2$$ from -2 to 2.
 
 ```python
 import numpy as np
@@ -86,7 +101,7 @@ Monte Carlo solution:  5.3323
 Analytical solution:  5.3333  
 
 where the Monte Carlo approximation is very close to the analytical solution.
-Visually, the integration of *f(x)=x<sup>2</sup>* from -2 to 2 is shown below in blue. The
+Visually, the integration of $$f(x)=x^2$$ from -2 to 2 is shown below in blue. The
 approximation is the rectangle highlighted in red.
 
 ![](/images/mci_univariate.png){: .align-center}
@@ -94,10 +109,10 @@ approximation is the rectangle highlighted in red.
 ## Example | Multivariate
 
 We can also perform integration for multivariate functions. The procedure is the
-same as before. However, instead of sampling over a line (from *a* to *b*), we
+same as before. However, instead of sampling over a line (from $$a$$ to $$b$$), we
 now need to sample over a higher-dimensional domain. For simplicity, we will
 illustrate the integration of a multivariate function over a domain with the
-same *a* and *b* for each variable. This means in a function with two variables
+same $$a$$ and $$b$$ for each variable. This means in a function with two variables
 (x1 and x2), the domain is square shaped; and for function with three variables,
 cube shaped.
 
@@ -154,7 +169,7 @@ nonetheless  the same — with uniform sampling, we wish to sample over the doma
 approximate the integration via the product of the domain volume and expected value of 
 the function over the domain.
 
-Let’s use the same bivariate function *f(x)*=10-x1<sup>2</sup>-x2<sup>2</sup> and integrate over a
+Let’s use the same bivariate function $$f(x)=10-x1^2-x2^2$$ and integrate over a
 unit circle. Uniform sampling over exactly the unit circle is harder than just
 sampling over a square region (that covers the unit circle). From this we can 1)
 calculate the area of the domain as the product of the area of the sampled

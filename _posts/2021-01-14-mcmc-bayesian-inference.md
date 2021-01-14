@@ -2,6 +2,7 @@
 layout: single
 title:  Bayesian inference using Markov Chain Monte Carlo with python (from scratch and with PyMC3)
 date:   2021-01-14
+mathjax: true
 ---
 
 A guide to Bayesian inference using Markov Chain Monte Carlo (Metropolis-Hastings algorithm) with python examples, and exploration of different data size/parameters on posterior estimation.
@@ -15,85 +16,98 @@ integration]({% post_url 2021-01-13-monte-carlo-integration %}) — for which we
 use sampling approaches in solving integration problems.
 
 However, there are times when direct sampling from a distribution is not
-possible. Suppose we wish to sample from *P(x)*,
+possible. Suppose we wish to sample from $$P(x)$$,
 
-![](/images/mcmc_eq01.png){: .align-center}
+$$P(x) = \frac{f(x)}{K}$$
 
-Here we know *f(x)*, but *K* can be difficult to estimate. As a result, we do
-not know what *P(x)* looks like. We cannot directly sample from something we do
+Here we know $$f(x)$$, but $$K$$ can be difficult to estimate. As a result, we do
+not know what $$P(x)$$ looks like. We cannot directly sample from something we do
 not know. 
 
 Markov chain Monte Carlo (MCMC) is a class of algorithms that addresses this by
-allowing us to estimate *P(x)* even if we do not know the distribution, by using
-a function *f(x)* that is proportional to the target distribution *P(x)*.
+allowing us to estimate $$P(x)$$ even if we do not know the distribution, by using
+a function $$f(x)$$ that is proportional to the target distribution $$P(x)$$.
 
-How MCMC solves this is by constructing a Markov chain of *x* values such that
-the stationary distribution of the chain *π(x)* is equal to *P(x)*. With some
+How MCMC solves this is by constructing a Markov chain of $$x$$ values such that
+the stationary distribution of the chain $$\pi(x)$$ is equal to $$P(x)$$. With some
 derivation, we can show that the general following steps,
 
 **Steps**
 
-1. Initialize to some values of *x*
-2. For *t* = 1, 2, 3, … *N*
+1. Initialize to some values of $$x$$
+2. For $$t$$ = 1, 2, 3, … $$N$$
 
-    a. Propose new *x* based on a proposal distribution *q*
+    a. Propose new $$x$$ based on a proposal distribution $$q$$
 
-    b. Calculate the acceptance ratio *r* and acceptance probability *A*
+    b. Calculate the acceptance ratio $$r$$ and acceptance probability $$A$$
 
-    ![](/images/mcmc_eq_acc.png){: .align-center}
+    $$r(x^*, x_t) = \frac{f(x^*)q(x_t|x^*)}{f(x_t)q(x^*|x_t)}$$
 
-    c. Accept the new *x* according to acceptance probability A
+    $$A = \min(1, r(x^*, x_t))$$
+
+    c. Accept the new $$x$$ according to acceptance probability A
 
 Different MCMC algorithms define different proposal distributions (aka
 transition operators). From this you can see that the term Monte Carlo in MCMC
-refers to the random generation of *x* proposals and Markov chain refers to the
-chain of *x’s* formed over the iterations. After an initial burn-in period
-(where the *x* is not stable), the distribution of *x* resembles *P(x)*.
+refers to the random generation of $$x$$ proposals and Markov chain refers to the
+chain of $$x$$’s formed over the iterations. After an initial burn-in period
+(where the $$x$$ is not stable), the distribution of $$x$$ resembles $$P(x)$$.
 
 ## MCMC for Bayesian inference
 
 MCMC is particularly useful in Bayesian inference where we would like to know
 the posterior estimate of our model parameters — i.e. what is the confidence
-range of the parameters *θ*, given observed data *X*.
+range of the parameters $$\theta$$, given observed data $$X$$.
 
 By Bayes’ theorem,
 
-![](/images/mcmc_eq_bayes.png){: .align-center}
+$$p(\theta|x) = \frac{p(x|\theta)p(\theta)}{p(x)} = \frac{p(x|\theta)p(\theta)}{\int p(x|\theta)p(\theta) \,d\theta}$$
+
+$$
+\begin{align}
+&p(x|\theta) \text{ is the likelihood} \\
+&p(\theta) \text{ is the prior} \\
+&p(\theta|x) \text{ is the posterior} \\
+&p(x) \text{ is the evidence} \\
+\end{align}
+$$
 
 A brief note on notation: in some places, you will see the following notation
 being used,
 
-![](/images/mcmc_eq_bayes_alt.png){: .align-center}
+$$\pi(\theta|x) = \frac{L(\theta)\pi(\theta)}{\int L(\theta)\pi(\theta) \,d\theta}$$
 
-For the remainder of this article, I will continue to use the *p* notation.
+For the remainder of this article, I will continue to use the $$p$$ notation.
 
 What the Bayes’ theorem says is that in order to calculate the posterior
-*p(θ|X)*, we need to calculate the product of the likelihood *p(X|θ)* and the
-prior *p(θ)* over a normalizing factor (the evidence). But the integral term for
+$$p(\theta|X)$$, we need to calculate the product of the likelihood $$p(X|\theta)$$ and the
+prior $$p(\theta)$$ over a normalizing factor (the evidence). But the integral term for
 the normalizing factor is often complicated and unknown. But notice that the
 posterior is proportional to the product of the likelihood and prior,
 
-![](/images/mcmc_eq_prop.png){: .align-center}
+$$p(\theta|x) \propto p(x|\theta)p(\theta)$$
 
-This is exactly similar to the expression *P(x)=f(x)/K* discussed in the
+This is exactly similar to the expression $$P(x)=f(x)/K$$ discussed in the
 earlier section. Thus, the steps to apply MCMC is exactly the same — we will
 change the notations to that in the context of Bayesian inference,
 
 **Steps**
-1. Initialize to some values of *θ*
-2. For *t* = 1, 2, 3, … *N*
+1. Initialize to some values of $$\theta$$
+2. For $$t$$ = 1, 2, 3, … $$N$$
 
-    a. Propose new *θ* based on a proposal distribution *q*
+    a. Propose new $$\theta$$ based on a proposal distribution $$q$$
 
-    b. Calculate the acceptance ratio *r* and acceptance probability *A*
+    b. Calculate the acceptance ratio $$r$$ and acceptance probability $$A$$
 
-    ![](/images/mcmc_eq_acc2.png){: .align-center}
+    $$r(\theta^*, \theta_t) = \frac{f(\theta^*|x)q(\theta_t|\theta^*)}{f(\theta_t|x)q(\theta^*|\theta_t)}$$
 
-    c. Accept the new *θ* according to acceptance probability A
+    $$A = \min(1, r(\theta^*, \theta_t))$$
 
-Here we are defining *f* as the unnormalized posterior, where,
+    c. Accept the new $$\theta$$ according to acceptance probability A
 
-![](/images/mcmc_eq_upostr.png){: .align-center}
+Here we are defining $$f$$ as the unnormalized posterior, where,
+
+$$f(\theta|x) = p(x|\theta)p(\theta)$$
 
 Note that MCMC is not an optimization algorithm where we try to find the
 parameter values that e.g. maximize the likelihood. Instead, the result of MCMC
@@ -104,32 +118,32 @@ on the model parameters given the observed data.
 ## Convergence
 
 How do we know if the MCMC has converged? There are several approaches. The most
-straightforward way is in examining the trace (i.e. a plot of *θ* over
+straightforward way is in examining the trace (i.e. a plot of $$\theta$$ over
 iterations). The trace of the burn-in would look quite different from the trace
 after convergence. Example,
 
 {% include figure image_path="/images/mcmc_burnin.png" caption="Comparison of trace with and without burn-in. There is an initial period (the
 burn-in) where the proposals of θ is not yet stable." %}
 
-As the newly proposed *θ* is dependent on the current *θ*, we expect some
+As the newly proposed $$\theta$$ is dependent on the current $$\theta$$, we expect some
 autocorrelation in the Markov chain — the samples are not completely
 independent. It can be shown that the error of the estimation in MCMC is,
 
-![](/images/mcmc_eq_error.png){: .align-center}
+$$\sigma^2 \approx \frac{\tau}{N} \text{Var}_{p(\theta|x)}[ \theta|x ]$$
 
 where 𝜏 is the integrated autocorrelation time of the chain and represents the
 steps needed before it is no longer dependent. In fact this is not so different
-from the variance of a sampling distribution *σ<sup>2</sup>*/*N*, except now we are using
-an effective sample size (*N*/*𝜏*) to account for the autocorrelation. Thus, to
+from the variance of a sampling distribution $$\sigma^2/N$$, except now we are using
+an effective sample size ($$N/\tau$$) to account for the autocorrelation. Thus, to
 minimize error, either we need to reduce the autocorrelation and/or increase the
 number of samples. It is briefly worth mentioning that an approach to reduce
-autocorrelation is via thinning — by taking the every *n*th sample after
+autocorrelation is via thinning — by taking the every $$n$$th sample after
 convergence for constructing the distribution.
 
 {% include figure image_path="/images/mcmc_thinning.png" caption="Effects of thinning. Autocorrelation of trace is shown (with burn-in discarded)." %}
 
 However, based on several analyses, it is recommended to increase the sample
-size *N*. Thinning, albeit removes autocorrelation, comes with the trade-off of
+size $$N$$. Thinning, albeit removes autocorrelation, comes with the trade-off of
 also removing samples that would have otherwise also reduced variance.
 
 There are more statistically rigorous ways to assess convergence that we will
@@ -139,17 +153,23 @@ Raftery and Lewis (1992), Heidelberger-Welch (1981; 1983).
 ## Implementation considerations
 
 If we are going to implement the above steps, there is another consideration we
-need to mention. With many data samples, the likelihood term *p(X|θ)* is
-the product of all the *p(X<sub>i</sub>|θ)* likelihoods (of each sample). Multiplying
+need to mention. With many data samples, the likelihood term $$p(X|\theta)$$ is
+the product of all the $$p(X_i|\theta)$$ likelihoods (of each sample). Multiplying
 many probabilities for simulation will lead to very small numbers. Instead, for
 numerical stability during computational simulation, we need to use the log
 transform instead. This means we are calculating the log of unnormalized
 posterior,
 
-![](/images/mcmc_eq_proplog.png){: .align-center}
+$$\ln{p(\theta|x)} \propto \ln{p(x|\theta)p(\theta)}$$
 
 Correspondingly, the acceptance ratio is,
-![](/images/mcmc_eq_acc2log.png){: .align-center}
+
+$$
+\begin{align}
+r(\theta^*, \theta_t) &= \exp(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta_t|x)}}) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)} \\
+&= \exp(\ln{f(\theta^*|x)} - \ln{f(\theta_t|x)}) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)}
+\end{align}
+$$
 
 ## Metropolis-Hastings in python
 
@@ -158,8 +178,8 @@ The Metropolis algorithm (with symmetric proposal distribution) and Gibbs
 sampling (sample from conditional distribution, consequently with acceptance
 ratio equaling 1) are special cases of the MH algorithm.
 
-First we can generate a synthetic observe data *X* from a Gaussian distribution,
-*X~N(3,1)*.
+First we can generate a synthetic observe data $$X$$ from a Gaussian distribution,
+$$X{\sim}N(3,1)$$.
 
 ```python
 import numpy as np
@@ -170,17 +190,17 @@ X = st.norm(loc=3, scale=1).rvs(size=1000)
 ```
 
 For this example, our likelihood is a Gaussian distribution, and we will use a
-Gaussian prior *θ~N(0,1)*. Since Gaussian is a self-conjugate, the posterior is
+Gaussian prior $$\theta{\sim}N(0,1)$$. Since Gaussian is a self-conjugate, the posterior is
 also a Gaussian distribution.
 
 We will set our proposal distribution as a Gaussian distribution centered as the
-current proposed *θ*. The standard deviation of this proposal distribution
-describes then how far the new *θ\** proposal is likely to be from the current
-proposed *θ*.
+current proposed $$\theta$$. The standard deviation of this proposal distribution
+describes then how far the new $$\theta^*$$ proposal is likely to be from the current
+proposed $$\theta$$.
 
 Since the proposal distribution is symmetric, the MH algorithm below technically
-reduces to the Metropolis algorithm. The *q(θ<sub>t</sub>|θ\*)*/*q(θ\*|θ<sub>t</sub>)* ratio is still
-included in the code below for didactic purposes,
+reduces to the Metropolis algorithm. The $$q(\theta_t/\theta^*)/q(\theta^*/\theta_t)$$ ratio is 
+still included in the code below for didactic purposes,
 
 ```python
 def guassian_posterior(X, theta):
@@ -324,9 +344,9 @@ observe good versus bad MCMC runs,
 {% include figure image_path="/images/mcmc_step_low.png" caption="MCMC results with SD for proposal distribution = 0.0001" %}
 
 From these, we can see that when the proposal step size is too large, the
-proposed *θ* is very far from the mean of the target distribution and keep
+proposed $$\theta$$ is very far from the mean of the target distribution and keep
 getting rejected (acceptance rate was 1.8%). This results in the trace barely
-moving to new *θ*’s. Conversely, when we make our proposal step size too small,
+moving to new $$\theta$$’s. Conversely, when we make our proposal step size too small,
 our acceptance rate is very high (97%) and it takes a long time before the chain
 ‘forgets’ the previous proposals (as supported by the high autocorrelation).
 Thus, an optimal acceptance rate (in the case of Gaussian posteriors, ~0.23) is
