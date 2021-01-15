@@ -30,7 +30,7 @@ a function $$f(x)$$ that is proportional to the target distribution $$P(x)$$.
 
 How MCMC solves this is by constructing a Markov chain of $$x$$ values such that
 the stationary distribution of the chain $$\pi(x)$$ is equal to $$P(x)$$. With some
-derivation, we can show that the general following steps,
+derivation, we can show the following general steps,
 
 **Steps**
 
@@ -41,9 +41,9 @@ derivation, we can show that the general following steps,
 
     b. Calculate the acceptance ratio $$r$$ and acceptance probability $$A$$
 
-    $$r(x^*, x_t) = \frac{f(x^*)q(x_t|x^*)}{f(x_t)q(x^*|x_t)}$$
+    $$r(x^*, x^{(t)}) = \frac{f(x^*)q(x^{(t)}|x^*)}{f(x^{(t)})q(x^*|x^{(t)})}$$
 
-    $$A = \min(1, r(x^*, x_t))$$
+    $$A = \min(1, r(x^*, x^{(t)}))$$
 
     c. Accept the new $$x$$ according to acceptance probability A
 
@@ -99,9 +99,9 @@ change the notations to that in the context of Bayesian inference,
 
     b. Calculate the acceptance ratio $$r$$ and acceptance probability $$A$$
 
-    $$r(\theta^*, \theta_t) = \frac{f(\theta^*|x)q(\theta_t|\theta^*)}{f(\theta_t|x)q(\theta^*|\theta_t)}$$
+    $$r(\theta^*, \theta^{(t)}) = \frac{f(\theta^*|x)q(\theta^{(t)}|\theta^*)}{f(\theta^{(t)}|x)q(\theta^*|\theta^{(t)})}$$
 
-    $$A = \min(1, r(\theta^*, \theta_t))$$
+    $$A = \min(1, r(\theta^*, \theta^{(t)}))$$
 
     c. Accept the new $$\theta$$ according to acceptance probability A
 
@@ -166,8 +166,8 @@ Correspondingly, the acceptance ratio is,
 
 $$
 \begin{align}
-r(\theta^*, \theta_t) &= \exp\left(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta_t|x)}}\right) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)} \\
-&= \exp(\ln{f(\theta^*|x)} - \ln{f(\theta_t|x)}) \frac{q(\theta_t|\theta^*)}{q(\theta^*|\theta_t)}
+r(\theta^*, \theta^{(t)}) &= \exp\left(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta^{(t)}|x)}}\right) \frac{q(\theta^{(t)}|\theta^*)}{q(\theta^*|\theta^{(t)})} \\
+&= \exp(\ln{f(\theta^*|x)} - \ln{f(\theta^{(t)}|x)}) \frac{q(\theta^{(t)}|\theta^*)}{q(\theta^*|\theta^{(t)})}
 \end{align}
 $$
 
@@ -199,7 +199,7 @@ describes then how far the new $$\theta^*$$ proposal is likely to be from the cu
 proposed $$\theta$$.
 
 Since the proposal distribution is symmetric, the MH algorithm below technically
-reduces to the Metropolis algorithm. The $$q(\theta_t/\theta^*)/q(\theta^*/\theta_t)$$ ratio is 
+reduces to the Metropolis algorithm. The $$q(\theta^{(t)}/\theta^*)/q(\theta^*/\theta^{(t)})$$ ratio is 
 still included in the code below for didactic purposes,
 
 ```python
@@ -272,11 +272,11 @@ def plot_res(xs, burn_in, x_name):
     
     # plot trace full
     fig, ax = plt.subplots(2,2, figsize=(15,5))
-    ax[0,0].plot(list(range(len(xs))), xs)
+    ax[0,0].plot(xs)
     ax[0,0].set_title('Trace, full')
     
     # plot trace, after burn-in
-    ax[0,1].plot(list(range(len(xs_kept))), xs_kept)
+    ax[0,1].plot(xs_kept)
     ax[0,1].set_title('Trace, after discarding burn-in')
 
     # plot distribution, after burn-in
