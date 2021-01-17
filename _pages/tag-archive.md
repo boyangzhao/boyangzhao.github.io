@@ -1,0 +1,7 @@
+---
+layout: tags
+title: "Posts by tag"
+permalink: /tags/
+author_profile: true
+mathjax: true
+---

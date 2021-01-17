@@ -3,6 +3,10 @@ layout: single
 title:  Bayesian inference using Markov Chain Monte Carlo with python (from scratch and with PyMC3)
 date:   2021-01-14
 mathjax: true
+tags:
+  - Monte Carlo methods
+  - Statistical inference
+  - Bayesian
 ---
 
 A guide to Bayesian inference using Markov Chain Monte Carlo (Metropolis-Hastings algorithm) with python examples, and exploration of different data size/parameters on posterior estimation.

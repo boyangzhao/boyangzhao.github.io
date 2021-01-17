@@ -3,6 +3,10 @@ layout: single
 title:  Getting started with Gaussian process regression modeling
 date:   2020-08-07
 mathjax: true
+tags:
+  - Stochastic processes
+  - Bayesian
+  - Models
 ---
 
 Gaussian processing (GP) is quite a useful technique that enables a

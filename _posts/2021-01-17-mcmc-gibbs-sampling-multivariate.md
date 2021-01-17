@@ -3,6 +3,10 @@ layout: single
 title:  Gibbs sampling of multivariate probability distributions
 date:   2021-01-17
 mathjax: true
+tags:
+  - Monte Carlo methods
+  - Statistical inference
+  - Bayesian
 ---
 
 This is a continuation of a previous article I have written on [Bayesian inference using Markov chain Monte Carlo (MCMC)]({% post_url 2021-01-14-mcmc-bayesian-inference %}). Here we will extend to multivariate probability distributions, and in particular looking at Gibbs sampling. I refer the reader to the earlier article for more basic introductions to Bayesian inference and MCMC.

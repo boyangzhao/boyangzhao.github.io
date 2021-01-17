@@ -3,6 +3,8 @@ layout: single
 title:  Monte Carlo integration in python over univariate and multivariate functions
 date:   2021-01-13
 mathjax: true
+tags:
+  - Monte Carlo methods
 ---
 
 Monte Carlo integration is a basic Monte Carlo method for numerically estimating
