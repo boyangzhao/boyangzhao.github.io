@@ -178,8 +178,8 @@ The Metropolis algorithm (with symmetric proposal distribution) and Gibbs
 sampling (sample from conditional distribution, consequently with acceptance
 ratio equaling 1) are special cases of the MH algorithm.
 
-First we can generate a synthetic observe data $$X$$ from a Gaussian distribution,
-$$X{\sim}N(3,1)$$.
+First we can generate a synthetic observed data $$X$$ from a Gaussian distribution,
+$$X{\sim}\mathcal{N}(3,1)$$.
 
 ```python
 import numpy as np
@@ -190,7 +190,7 @@ X = st.norm(loc=3, scale=1).rvs(size=1000)
 ```
 
 For this example, our likelihood is a Gaussian distribution, and we will use a
-Gaussian prior $$\theta{\sim}N(0,1)$$. Since Gaussian is a self-conjugate, the posterior is
+Gaussian prior $$\theta{\sim}\mathcal{N}(0,1)$$. Since Gaussian is a self-conjugate, the posterior is
 also a Gaussian distribution.
 
 We will set our proposal distribution as a Gaussian distribution centered as the
@@ -220,14 +220,14 @@ def guassian_proposal_prob(x1, x2):
     q = st.norm(loc=x1, scale=1).pdf(x2)
     return q
 
-def mcmc_mh_posterior(X, theta_init, func, proposal_func, proposal_func_prob, n=1000):
+def mcmc_mh_posterior(X, theta_init, func, proposal_func, proposal_func_prob, n_iter=1000):
     # Metropolis-Hastings to estimate posterior
     thetas = []
     theta_curr = theta_init
     accept_rates = []
     accept_cum = 0
     
-    for i in range(1, n+1):
+    for i in range(1, n_iter+1):
         theta_new = proposal_func(theta_curr)
         
         prob_curr = func(X, theta_curr)
@@ -255,7 +255,7 @@ def mcmc_mh_posterior(X, theta_init, func, proposal_func, proposal_func_prob, n=
 # run MCMC
 thetas, accept_rates = mcmc_mh_posterior(X, 1, 
                                          guassian_posterior, guassian_proposal, guassian_proposal_prob, 
-                                         n=8000)
+                                         n_iter=8000)
 ```
 
 The results look like
