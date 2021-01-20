@@ -373,7 +373,8 @@ distribution to be reflective of the target distribution.
 - [MPIA Python Workshop (2011) Metropolis-Hastings algorithm](https://python4mpia.github.io/fitting_data/Metropolis-Hastings.html)  
 - [Ellis (2018) A Practical Guide to MCMC Part 1: MCMC Basics](https://jellis18.github.io/post/2018-01-02-mcmc-part1/)  
 - [Kim, Explaining MCMC sampling](https://joomik.github.io/metropolis/)  
-- [emcee documentation - autocorrelation analysis & convergence](https://emcee.readthedocs.io/en/stable/tutorials/autocorr/)  
+- [emcee documentation - autocorrelation analysis & convergence](https://emcee.readthedocs.io/en/stable/tutorials/autocorr/) 
+- [Wiecki (2015) MCMC sampling for dummies](https://twiecki.io/blog/2015/11/10/mcmc-sampling/)
 
 ***PyMC3***
 
