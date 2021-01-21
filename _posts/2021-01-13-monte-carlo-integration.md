@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  Monte Carlo integration in python over univariate and multivariate functions
+title:  Monte Carlo integration in Python over univariate and multivariate functions
 date:   2021-01-21
 mathjax: true
 tags:
@@ -9,7 +9,7 @@ tags:
 
 Monte Carlo integration is a basic Monte Carlo method for numerically estimating
 the integration of a function $$f(x)$$. We will discuss here the theory along with
-examples in python.
+examples in Python.
 
 ## Theory
 
@@ -181,7 +181,7 @@ visualization of the sampling (sampled points inside the unit circle shown in gr
 
 ![](/images/mci_sampling.png){: .align-center}
 
-In python, this looks like,
+In Python, this looks like,
 
 ```python
 import numpy as np
@@ -245,12 +245,12 @@ $$
 \boldsymbol{\Sigma} = 
 \begin{bmatrix} 
     1 & 0.8 & 0.5 \\ 
-    0.8 & 1 & 0.5 \\ 
+    0.8 & 1 & 0.8 \\ 
     0.5 & 0.8 & 1
 \end{bmatrix}
 $$
 
-We define these in python and perform our Monte Carlo integration,
+We define these in Python and perform our Monte Carlo integration,
 ```python
 import scipy.stats as st
 
@@ -292,7 +292,7 @@ Solution from pmvnEll (shotGroups pkg in R):  0.2019
 
 ## Additional comments
 
-Obviously the examples provided are simple and some have analytical solutions and/or python/R packages for specific cases. But
+Obviously the examples provided are simple and some have analytical solutions and/or Python/R packages for specific cases. But
 they are useful to get a grasp of the mechanics behind Monte Carlo integration. Clearly the Monte Carlo method described is readily 
 generalizable to more complicated functions with no closed form solutions. In addition, there are many more optimized ways to 
 perform sampling (e.g. stratified sampling, importance sampling, etc) and readers are encouraged to read more into those topics if interested.
