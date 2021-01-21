@@ -67,7 +67,7 @@ by the expected value of the function over the domain.
 
 ## Example | Univariate
 
-As an example, in python, we can perform the following to approximate the
+As an example, in Python, we can perform the following to approximate the
 integration of $$f(x)=x^2$$ from -2 to 2.
 
 ```python
@@ -293,8 +293,8 @@ Solution from pmvnEll (shotGroups pkg in R):  0.2019
 ## Additional comments
 
 Obviously the examples provided are simple and some have analytical solutions and/or python/R packages for specific cases. But
-they are useful to get a grasp of the mechanics behind Monte Carlo integration. Clearly the Monte Carlo described is readily generalizable 
-to more complicated functions with no closed form solutions. In addition, there are many more optimized ways to 
+they are useful to get a grasp of the mechanics behind Monte Carlo integration. Clearly the Monte Carlo method described is readily 
+generalizable to more complicated functions with no closed form solutions. In addition, there are many more optimized ways to 
 perform sampling (e.g. stratified sampling, importance sampling, etc) and readers are encouraged to read more into those topics if interested.
 
 ## Additional resources
