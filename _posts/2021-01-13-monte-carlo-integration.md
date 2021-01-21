@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  Monte Carlo integration in python over univariate and multivariate functions
-date:   2021-01-13
+date:   2021-01-21
 mathjax: true
 tags:
   - Monte Carlo methods
@@ -191,8 +191,9 @@ def func1(x):
     # for 2D: f(x)= 10 - x1^2 - x2^2
     return 10 + np.sum(-1*np.power(x, 2), axis=1)
 
-def func_domain1(x):
-    # integration domain: sum of x^2 <= 1. For 2d, it's a circle; for 3d it's a sphere, etc
+def domain_unit_circle(x):
+    # integration domain: sum of x^2 <= 1. 
+    # For 2d, it's a unit circle; for 3d it's a unit sphere, etc
     # returns True for inside domain, False for outside
     
     return np.power(x,2).sum() <= 1
@@ -219,7 +220,7 @@ def mc_integrate(func, func_domain, a, b, dim, n = 1000):
     return integ
 
 print("For f(x)= 10 - x1\u00b2 - x2\u00b2, integrated over unit circle")
-print(f"Monte Carlo solution: {mc_integrate(func1, func_domain1, -2, 2, 2, 1000000): .3f}")
+print(f"Monte Carlo solution: {mc_integrate(func1, domain_unit_circle, -2, 2, 2, 1000000): .3f}")
 print(f"Analytical solution: 29.845")
 ```
 
@@ -230,14 +231,71 @@ For f(x)= 10 - x1<sup>2</sup> - x2<sup>2</sup>, integrated over unit circle
 Monte Carlo solution:  29.849  
 Analytical solution: 29.845  
 
+As a last example, we can also integrate over multivariate probability distributions. Let's
+integrate the following multivariate normal distribution over the unit circle,
+
+$$ \boldsymbol{X} \sim \mathcal{N} ( \boldsymbol{\mu}, \boldsymbol{\Sigma} ) $$
+
+where
+$$
+\boldsymbol{\mu} = \begin{bmatrix} 0 \\ 0.5 \\ 1.0 \end{bmatrix}
+$$
+and
+$$
+\boldsymbol{\Sigma} = 
+\begin{bmatrix} 
+    1 & 0.8 & 0.5 \\ 
+    0.8 & 1 & 0.5 \\ 
+    0.5 & 0.8 & 1
+\end{bmatrix}
+$$
+
+We define these in python and perform our Monte Carlo integration,
+```python
+import scipy.stats as st
+
+class func_mvn:
+    # multivariate normal given mean and covariance
+    def __init__(self, mu, cov):
+        self.mu = mu
+        self.cov = cov
+        self.func = st.multivariate_normal(mu, cov)
+    
+    def calc_pdf(self, x):
+        return self.func.pdf(x)
+
+mean = np.array([0, 0.5, 1])
+cov = np.array([[1, 0.8, 0.5], [0.8, 1, 0.8], [0.5, 0.8, 1]])
+
+f = func_mvn(mean, cov)
+fmvn = f.calc_pdf
+
+print("For multivariate normal, integrated over unit circle")
+r, x_list, inside_domain = mc_integrate(fmvn, domain_unit_circle, -1, 1, 3, 2000000)
+print(f"Monte Carlo solution: {r: .4f}")
+print(f"Solution from pmvnEll (shotGroups pkg in R): {0.2018934: .4f}")
+```
+
+As confirmation, we use the `pmvnEll` function that can integrate multivariate normal distributions over ellipsoids (circles included).
+```R
+#in R
+library(shotGroups)
+pmvnEll(r=1, sigma=rbind(c(1,0.8,0.5), c(0.8,1,0.8), c(0.5,0.8,1)), mu=c(0,0.5,1), e=diag(3), x0=c(0,0,0))
+```
+
+With the results closely matching each other,
+
+{: .notice--info}
+For multivariate normal, integrated over unit circle  
+Monte Carlo solution:  0.2020  
+Solution from pmvnEll (shotGroups pkg in R):  0.2019  
+
 ## Additional comments
 
-Obviously the examples provided are simple and have analytical solutions. But
-they are useful to get a grasp of the mechanics behind Monte Carlo integration.
-It can be used for more complicated functions with no closed form solutions. In
-addition, there are many more optimized ways to perform sampling (e.g.
-stratified sampling, importance sampling, etc) and readers are encouraged to
-read more into those topics if interested.
+Obviously the examples provided are simple and some have analytical solutions and/or python/R packages for specific cases. But
+they are useful to get a grasp of the mechanics behind Monte Carlo integration. Clearly the Monte Carlo described is readily generalizable 
+to more complicated functions with no closed form solutions. In addition, there are many more optimized ways to 
+perform sampling (e.g. stratified sampling, importance sampling, etc) and readers are encouraged to read more into those topics if interested.
 
 ## Additional resources
 - [Scratchapixel - Monte Carlo Methods in Practice](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/monte-carlo-integration)
