@@ -171,7 +171,7 @@ We see the following,
 
 ![](/images/ve_theta_series.png){: .align-center}
 
-We do not observe the prior having a large influence in our estimations of $$\theta$$. On the other hand, if we choose another vastly different prior, e.g. Beta(25, 0.5), we see our posterior estimations are much more influenced by the prior.
+We do not observe the prior having a large influence in our estimations of $$\theta$$. On the other hand, if we choose another vastly different prior, e.g. Beta(20, 0.5), we see our posterior estimations are much more influenced by the prior.
 
 ![](/images/ve_theta_series_chg.png){: .align-center}
 
