@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  Bayesian inference using Markov Chain Monte Carlo with python (from scratch and with PyMC3)
+title:  Bayesian inference using Markov Chain Monte Carlo with Python (from scratch and with PyMC3)
 date:   2021-01-14
 mathjax: true
 tags:
@@ -178,8 +178,8 @@ $$
 ## Metropolis-Hastings in python
 
 The steps presented above is effectively the Metropolis-Hastings (MH) algorithm.
-The Metropolis algorithm (with symmetric proposal distribution) and Gibbs
-sampling (sample from conditional distribution, consequently with acceptance
+The Metropolis algorithm (with symmetric proposal distribution) and [Gibbs
+sampling]({% post_url 2021-01-17-mcmc-gibbs-sampling-multivariate %}) (sample from conditional distribution, consequently with acceptance
 ratio equaling 1) are special cases of the MH algorithm.
 
 First we can generate a synthetic observed data $$X$$ from a Gaussian distribution,

@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  Monte Carlo integration in Python over univariate and multivariate functions
-date:   2021-01-21
+date:   2021-01-13
 mathjax: true
 tags:
   - Monte Carlo methods
