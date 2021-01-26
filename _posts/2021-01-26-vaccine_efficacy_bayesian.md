@@ -246,7 +246,7 @@ def VE_95ci_betabinom(c_v, c_p, t_v, t_p):
 # calculate VE and 95% CI
 VE_95ci_betabinom(8, 162, 2.214, 2.222) # Pfizer/BioNTech
 VE_95ci_betabinom(11, 185, 3.274, 3.333) # Moderna
-VE_95ci_betabinom(30, 101, 0.680, 0.677) # Pfizer/BioNTech
+VE_95ci_betabinom(30, 101, 0.680, 0.677) # AstraZeneca/Oxford
 ```
 
 Our resulting calculations are as follows,
