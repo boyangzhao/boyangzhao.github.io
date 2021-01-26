@@ -128,15 +128,15 @@ Now to calculate the posterior $$p(\theta<0.4117647 \vert x)$$, this is simply t
 
 The 95% credible interval can be obtained via calculating the posterior probabilities at the 2.5th and 97.5th percentile. The lower/upper bound $$\theta$$ can then be used to derive the upper/lower bound VE values (with surveillance time adjustment using $$r$$).
 
-Before moving to the next section, we will just explore the effects of different $$\theta$$ values on the likelihood and posterior, using the prior we've discussed. As an example, we will set 150 cases in the placebo group, and vary the number of observed cases in the vaccinated group.
+Before moving to the next section, we will just explore the effects of different $$\theta$$ values on the likelihood and posterior, using the prior we've discussed. As an example, we will set 150 total cases, and vary the number of observed cases in the vaccinated group.
 
 ```python
 import numpy as np
 import scipy.stats as st
 import matplotlib.pyplot as plt
 
-c_vs = [17, 50, 100, 150] # no. cases in vaccinated group
-c_ps = [150, 150, 150, 150] # no. cases in placebo group
+c_vs = np.array([10, 25, 50, 75]) # no. cases in vaccinated group
+c_ps = 150 - c_vs # no. cases in placebo group
 a = 0.700102 # param a in prior
 b = 1 # param b in prior
 
