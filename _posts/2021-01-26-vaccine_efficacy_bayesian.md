@@ -10,7 +10,7 @@ tags:
   - clinical trials
 ---
 
-It was interesting to see that Pfizer/BioNTech used a Bayesian analysis of the primary endpoint for its COVID-19 vaccine. There are a few posts on this already last year (see resources section below), so I will try not to repeat everything. The goals of this post is to provide (1) an overview of the methods used in assessing vaccine efficacy, (2) more details on the Bayesian statistical analyses, including adjustments for surveillance time (ableit minor, but was used in the Pfizer/BioNTech study) for the sake of completeness and in fully recapitulating the results reported, and (3) adopt this method for the analysis of other select COVID-19 vaccines (which originally used frequentist approaches).
+It was interesting to see that Pfizer/BioNTech used a Bayesian analysis of the primary endpoint for its COVID-19 vaccine. There are a few posts on this already last year (see resources section below), so I will try not to repeat everything. The goals of this post is to provide (1) an overview of the methods used in assessing vaccine efficacy, (2) more details on the Bayesian statistical analyses, including adjustments for surveillance time (albeit minor, but was used in the Pfizer/BioNTech study) for the sake of completeness and in fully recapitulating the results reported, and (3) adopt this method for the analysis of other select COVID-19 vaccines (which originally used frequentist approaches).
 
 ## Vaccine efficacy
 The way we measure vaccine efficacy is defined as follows,
@@ -120,7 +120,7 @@ But the last expression is just another beta distribution, so the posterior can 
 
 $$\theta \vert x \sim \text{Beta}(\alpha + c_v, \beta + c_p)$$
 
-This is also why beta is a conjugate prior for the binomial distribution, since the posterior is also a beta distribution. We won't go into more details here, but the posterior predictive distribution is then a beta-binomial distribution. <!-- more details on beta-binomial -->
+This is also why beta is a conjugate prior for the binomial distribution, since the posterior is also a beta distribution. We won't go into more details here, but the posterior predictive distribution is then a beta-binomial distribution.
 
 What prior can we choose? Well if we are interested in testing the posterior $$p(\theta<0.4117647 \vert x)$$, we can set the prior beta distribution such that the mean is this value. That is indeed what Pfizer/BioNTech have done - the prior used was Beta(0.700102, 1), so the mean is 0.700102/(0.700102+1) ≈ 0.4118.
 
@@ -257,7 +257,7 @@ Our resulting calculations are as follows,
 | Moderna | 93.95 (89.19 - 96.76) | >0.999999 |
 | AstraZeneca/Oxford | 70.43 (56.00 - 80.48) | >0.999995 |
 
-Not suprisingly the calculations for VE and posterior match exactly the results reported in Table 2 in the Pfizer/BioNTech study[^cite_pfizer]. Due to us using the Bayesian estimations here, we expectedly observe slight differences in values for the Moderna and AstraZeneca/Oxford studies. We can also see the underlying likelihood, prior, and posterior distributions based on the actual reported cases for the e.g. Pfizer/BioNTech study,
+Not surprisingly the calculations for VE and posterior match exactly the results reported in Table 2 in the Pfizer/BioNTech study[^cite_pfizer]. Due to us using the Bayesian estimations here, we expectedly observe slight differences in values for the Moderna and AstraZeneca/Oxford studies. We can also see the underlying likelihood, prior, and posterior distributions based on the actual reported cases for the e.g. Pfizer/BioNTech study,
 
 {% include figure image_path="/images/ve_pfizer.png" caption="Bayesian distributions for Pfizer/BioNTech COVID-19 study, based on 8 and 162 reported cases in the vaccinated and placebo groups, respectively." %}
 
