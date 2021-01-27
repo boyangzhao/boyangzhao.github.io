@@ -33,15 +33,15 @@ where $$T_v$$ and $$T_p$$ are the time-person years for the vaccinated and place
 
 **With HR**
 
-$$ \text{VE} = 1 - \text{HR} = 1 - \frac{\lambda_c}{\lambda_p}$$
+$$ \text{VE} = 1 - \text{HR} = 1 - \frac{\lambda_v}{\lambda_p}$$
 
-where $$\lambda_c$$ and $$\lambda_p$$ are the hazard rates for the vaccinated and placebo group, respectively. This measures the relative reduction in the hazard of infection. The hazard ratio can be estimated from e.g. Cox regression models.
+where $$\lambda_v$$ and $$\lambda_p$$ are the hazard rates for the vaccinated and placebo group, respectively. This measures the relative reduction in the hazard of infection. The hazard ratio can be estimated from e.g. Cox regression models.
 
 ## Select COVID-19 vaccines
 
 With the above measures in mind, we will briefly highlight select COVID-19 vaccines and their protocol characteristics. We will not go into details of the inclusion/exclusion criteria (please refer to actual protocols) - the information below is only to highlight select key parameters for each vaccine. As reference, note that both WHO and FDA recommendation for VE is that the lower bound of the interim analyses adjusted confidence interval for VE to be greater than 30% and that the point estimate of VE to be at least 50%[^cite_fda].
 
-| Developer | Vaccine | Reference | VE measure[^primary_endpoint] | Model | Planned success criteria (at primary analysis) [^sc] | 
+| Developer | Vaccine | Reference | VE measure[^primary_endpoint] | Model | Planned success criteria (at primary analysis)[^sc] | 
 |--- | --- | --- | --- | --- |
 | Pfizer/BioNTech | BNT162b2 | Polack et al, 2020 *N Eng J Med* | VE=1-IRR | Beta-binomial on $$\theta$$ | posterior P(VE>0.3\|data) is greater than 0.986 |
 | Moderna | mRNA-1273 | Baden et al, 2020 *N Eng J Med* | VE=1-HR | stratified Cox on HR | 1-sided p-value for rejecting HR≥0.7 is less than 0.0227 [^success_criteria_moderna] |
@@ -188,7 +188,7 @@ In the Pfizer/BioNTech study, the success boundaries were defined as P(VE>0.3\|d
 
 ## COVID-19 VE calculations
 
-The reported COVID-19 efficacy results are as followings,
+The reported COVID-19 efficacy results are as follows,
 
 |  | Vaccinated group || Placebo group ||
 | Developer [ref] | no. cases / total no.| surveillance time[^timeperson] | no. cases / total no.| surveillance time[^timeperson] |
@@ -276,7 +276,7 @@ It is important to note there are additional differences amongst the trials, suc
 [^primary_endpoint]: Some primary endpoints also include safety, as some clinical trials are combined Phase 1/2/3 trials. The exact criteria for confirmed COVID cases is further described in protocols. The table provided focused only on the measure of efficacy endpoint. 
 [^primary_endpoint_pfizer]: The trial is a phase 1/2/3 trial with efficacy as primary endpoints in the pivotal phase 2/3 trial. There were two primary endpoints, one with vaccinated group consisting of participants without evidence of infection prior to vaccination; and other of participants with and without evidence of infection prior to vaccination. We will only focus on the former in this post.
 [^sc]: As all studies have interim analyses, the success criteria was defined such that the overall type I error was protected at predefined levels (2.5% for BNT162b2 and mRNA-1273; 5% for AZD1222). The success boundary here details only that of the planned primary analysis. Some trials have passed the success boundary in interim studies.
-[^success_criteria_moderna]: Success boundaries as was planned in study protocol. Actual analyses reported in Baden et al. was based on an interim study where the relevant success threshold for p-value was 0.0049 (stated in FDA Briefing Document on Moderna COVID-19 Vaccine, page 23) - which was based on the O’Brien Fleming boundary at the time of the first interim analysis. The p-value was found to be <0.0001, surpassing the threshold.
+[^success_criteria_moderna]: Success boundaries as were planned in study protocol. Actual analyses reported in Baden et al. were based on an interim study where the relevant success threshold for p-value was 0.0049 (stated in FDA Briefing Document on Moderna COVID-19 Vaccine, page 23) - which was based on the O’Brien Fleming boundary at the time of the first interim analysis. The p-value was found to be <0.0001, surpassing the threshold.
 [^timeperson]: Total time in 1000 person-years. The surveillance time in Pfizer/BioNTech was provided. The surveillance times in Moderna and Astrazeneca studies we have calculated (as cases/incidence rate), given they have provided the incidence rate and the number of cases.
 
 [^cite_pfizer]: Polack et al. 2020 *N Eng J Med* 383(27), 2603-2615 [link](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577)
