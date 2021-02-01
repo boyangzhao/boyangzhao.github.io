@@ -22,7 +22,7 @@ what GP is based on. A multivariate Gaussian distribution can be fully defined
 by its mean vector and covariance matrix
 
 $$
-\boldsymbol{X} \propto \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+\boldsymbol{X} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})
 $$
 
 There are two important properties of Gaussian distributions that make later GP
@@ -33,7 +33,7 @@ calculations possible: marginalization and conditioning.
 With a joint Gaussian distribution, this can be written as,
 
 $$
-\begin{bmatrix}\boldsymbol{X} \\ \boldsymbol{Y} \end{bmatrix}  \propto \mathcal{N} \bigg(
+\begin{bmatrix}\boldsymbol{X} \\ \boldsymbol{Y} \end{bmatrix}  \sim \mathcal{N} \bigg(
     \begin{bmatrix}\boldsymbol{\mu_X} \\ \boldsymbol{\mu_Y} \end{bmatrix}, 
     \begin{bmatrix} \boldsymbol{\Sigma_{XX}} & \boldsymbol{\Sigma_{XY}} \\ \boldsymbol{\Sigma_{YX}} & \boldsymbol{\Sigma_{YY}} \end{bmatrix} 
 \bigg)
