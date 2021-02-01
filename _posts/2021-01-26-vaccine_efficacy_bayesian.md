@@ -7,7 +7,7 @@ toc: true
 toc_sticky: true  
 tags:
   - Bayesian
-  - clinical trials
+  - Clinical trials
 ---
 
 It was interesting to see that Pfizer/BioNTech used a Bayesian analysis of the primary endpoint for its COVID-19 vaccine. There are a few posts on this already last year (see resources section below), so I will try not to repeat everything. The goals of this post is to provide (1) an overview of the methods used in assessing vaccine efficacy, (2) more details on the Bayesian statistical analyses, including adjustments for surveillance time (albeit minor, but was used in the Pfizer/BioNTech study) for the sake of completeness and in fully recapitulating the results reported, and (3) adopt this method for the analysis of other select COVID-19 vaccines (which originally used frequentist approaches).
@@ -183,7 +183,6 @@ Once we have calculated P(VE>0.3\|data), we still need to know at what threshold
 
 Because there are interim analyses performed, we need to account for this in order to keep the overall type I error at a pre-defined level (e.g. 2.5%). Technically this is a frequentist concept, as we have a null hypothesis and corresponding test statistic, in which we reject at a pre-defined alpha level. With interim studies, traditionally in the frequentist approach, we use alpha spending functions (e.g. Lan-DeMets O’Brien-Fleming) that describes how much alpha we 'spend' at each interim analysis so the overall alpha is kept ('protected') at e.g. 2.5%. In practice, this then defines the alpha to accept/reject the null hypothesis at any given interim analysis. With the Bayesian trial design, this frequentist characteristic can be incorporated via determining thresholds for the posterior probabilities (i.e. P(VE>0.3\|data)), such that the overall type I error is controlled at a desired level - hence somewhat of a hybrid frequentist/Bayesian strategy.
 
-<!-- TO DO -->
 In the Pfizer/BioNTech study, the success boundaries were defined as P(VE>0.3\|data) > 0.995 and >0.986 for interim and primary analyses, respectively. The boundaries can be derived based on simulations and/or sensitivity analyses (it was unclear the exact methods used in the Pfizer/BioNTech study). From a given boundary, we can also derive the design operating characteristics. This would be a post in of itself and we will not delve deeper here.
 
 ## COVID-19 VE calculations
@@ -261,7 +260,7 @@ Not surprisingly the calculations for VE and posterior match exactly the results
 
 {% include figure image_path="/images/ve_pfizer.png" caption="Bayesian distributions for Pfizer/BioNTech COVID-19 study, based on 8 and 162 reported cases in the vaccinated and placebo groups, respectively." %}
 
-It is important to note there are additional differences amongst the trials, such as criteria for defining confirmed COVID-19 cases, so the comparisons here are only for didactical purposes.
+It is important to note there are additional differences amongst the trials, such as criteria for defining confirmed COVID-19 cases, so the comparisons here are only for didactical purposes. Moreover, the emergence of SARS-CoV-2 mutant variants means more recent and/or upcoming clinical trials are run on a background of different viral genetic variants population (such as Johnson & Johnson's phase 3 trial in South Africa, where B.1.351 mutant is the most prevalent). This further confounds the comparison of vaccine efficacy and effectiveness in the real-world.
 
 ## Related posts and resources
 - [Natalie Dean's twitter posts](https://twitter.com/nataliexdean/status/1307067685310730241?s=20)
