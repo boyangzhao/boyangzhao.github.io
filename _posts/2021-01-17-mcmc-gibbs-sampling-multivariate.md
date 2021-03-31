@@ -46,11 +46,11 @@ $$r(x^*, x^{(t)}) = \frac{f(x^*)q(x^{(t)}|x^*)}{f(x^{(t)})q(x^*|x^{(t)})}$$
 with Gibbs sampling, our $$f(x)$$ is a probability distribution $$p(\boldsymbol{x})$$ and our proposal distribution is the full conditional distributions of $$p(\boldsymbol{x})$$. At each proposal step, the acceptance ratio is essentially,
 
 $$
-\begin{align}
+\begin{align*}
 r(x_i^*, x_i^{(t)} ) &= \frac{ p(x_i^*,x_{-i}^{(t)} ) p(x_i^{(t)}|x_{-i}^{(t)})} {p(x_i^{(t)}, x_{-i}^{(t)} ) p(x_i^* |x_{-i}^{(t)})} \\
 &= \frac{p(x_i^* | x_{-i}^{(t)})p(x_{-i}^{(t)}) p(x_i^{(t)} | x_{-i}^{(t)})} {p(x_i^{(t)}|x_{-i}^{(t)}) p(x_{-i}^{(t)}) p(x_i^*|x_{-i}^{(t)})} \\
 &= 1
-\end{align}
+\end{align*}
 $$
 
 Hence with Gibbs sampling, it is a MH algorithm with acceptance ratio always equaling to 1.

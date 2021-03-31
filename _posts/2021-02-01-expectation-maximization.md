@@ -11,7 +11,9 @@ tags:
 
 In statistical inference, we want to find what is the best model parameters given the observed data. In the frequentist view, this is about maximizing the likelihood (MLE). In Bayesian inference, this is in maximizing the posterior. When we maximize the likelihood (often log-likelihood, as this is easier to optimize because of its benefits of monotonic transformation and numerical stability), we are asking,
 
-$$\arg \max_{\theta} \ln p(x; \theta)$$
+$$
+\arg \max_{\theta} \ln p(x; \theta)
+$$
 
 However, what if there are latent variables? Meaning if the model with $$\theta$$ parameters generating hidden variables $$z$$ and observed data $$x$$? We need to solve the MLE of the form,
 
@@ -38,11 +40,11 @@ where $$\theta \in \{\pi_k, \mu_k, \sigma^2_k\}, k \in \{1..K\}$$
 We can try to maximize the log-likelihoods by taking the derivatives. Let's try this for one of the model parameters, $$\mu_k$$. We will use $$\phi_k(x_i) = \mathcal{N}(x_i; \mu_k, \sigma^2_k)$$ to simplify the notations below,
 
 $$
-\begin{align}
+\begin{align*}
 \frac{\partial \ell(\theta)}{\partial \mu_k} &= \sum_i \frac{1}{\sum_k \pi_k \phi_k(x_i)} \pi_k \frac{\partial \phi_k(x_i)}{\partial \mu_k} \\
 &= \sum_i \frac{\pi_k \phi_k(x_i)}{\sum_k \pi_k \phi_k(x_i)} \frac{1}{\phi_k(x_i)} \frac{\partial \phi_k(x_i)}{\partial \mu_k} \\
 &= \sum_i \frac{\pi_k \phi_k(x_i)}{\sum_k \pi_k \phi_k(x_i)} \frac{\partial \ln \phi_k(x_i)}{\partial \mu_k} \\
-\end{align}
+\end{align*}
 $$
 
 We see there is an issue. The expression $$\frac{\partial \ln \phi_k(x_i)}{\partial \mu_k}$$ is familiar and is just the derivative of the log-likelihood for a single Gaussian - which we can use to estimate its model parameters. However, now there is a *weight* term $$\frac{\pi_k \phi_k(x_i)}{\sum_k \pi_k \phi_k(x_i)}$$ in front, so it is as if we are maximizing a weighted log-likelihood. Unfortunately this *weight* term depends on the model parameters we are also trying to estimate - hence lies the issue.
@@ -158,21 +160,21 @@ mu_1: -0.98; sd_1: 1.99; mu_2: 10.03; sd_2: 3.00; pi: 0.20;
 Our goal is to maximize the log marginal likelihood for models with latent variables. Because this expression results in an integral (or sum if discrete) inside the log transform, we introduce an arbitrary distribution $$q$$ over $$z$$ and apply Jensen’s inequality to construct a lower bound on the likelihood,
 
 $$
-\begin{align}
+\begin{align*}
 \sum_i \ln p(x_i;\theta) &= \sum_i \ln \int p(x_i,z_i;\theta) \,dz \\
 &= \sum_i \ln \int q(z_i) \frac{p(x_i,z_i;\theta)}{q(z_i)} \,dz \\
 &\ge \sum_i \int q(z_i) \ln \frac{p(x_i,z_i;\theta)}{q(z_i)} \,dz \\
 &= F(q, \theta) \\ 
-\end{align}
+\end{align*}
 $$
 
 The term $$F(q, \theta)$$ consists of,
 
 $$
-\begin{align}
+\begin{align*}
 F(q, \theta) &= \sum_i \int q(z_i) \ln p(x_i,z_i;\theta) \,dz - \sum_i \int q(z_i) \ln q(z_i) \,dz \\
 &= \sum_i \text{E}_{z_i \sim q}[\ln p(x_i,z_i;\theta)] + \sum_i H(q) \\
-\end{align}
+\end{align*}
 $$
 
 The expression $$F(q, \theta)$$ is a lower bound of our marginal likelihood and depends on our choice of the distribution $$q$$ and our estimates of $$\theta$$. To have the tightest bound at our current estimate of $$\theta$$, we want to maximize $$F(q, \theta^{(t)})$$ with respect to $$q$$, to derive a distribution $$q^{(t+1)}$$. It can be shown that the tightest bound at our current $$\theta$$ estimate is when we hold the above inequality *with equality*, resulting in the optimal $$q$$ being the posterior distribution of $$z$$ given $$x$$ and $$\theta^{(t)}$$. With this bound, we can maximize $$F(q^{(t+1)}, \theta)$$ with respect to $$\theta$$ to get a better estimate of $$\theta$$, which is also a better estimate for our marginal likelihood. This effectively is the expectation and maximization steps in the EM algorithm.
@@ -187,21 +189,21 @@ where $$Q(\theta; \theta^{(t)})$$ is the lower bound of the marginal likelihood 
 Maximize $$F(q, \theta)$$ with respect to $$q$$. The solution (i.e. the tightest bound) at our current estimate of $$\theta$$ is the posterior distribution of $$z$$ given $$x$$ and $$\theta^{(t)}$$. Thus, in practice, we need to calculate,
 
 $$
-\begin{align}
+\begin{align*}
 q^{(t+1)} &= \mathop{\operatorname{arg\,max}}_{q} F(q, \theta^{(t)}) \\
 &=p(z \vert x; \theta^{(t)})
-\end{align}
+\end{align*}
 $$
 
 **Maximization step**:
 Maximize $$F(q, \theta)$$ with respect to $$\theta$$. In other words, maximize the expected complete log-likelihood,
 
 $$
-\begin{align}
+\begin{align*}
 \theta^{(t+1)} &= \mathop{\operatorname{arg\,max}}_{\theta} F(q^{(t+1)}, \theta) \\
 &= \mathop{\operatorname{arg\,max}}_{\theta} Q(\theta; \theta^{(t)}) \\
 &= \mathop{\operatorname{arg\,max}}_{\theta} \sum_i \text{E}_{z_i \vert x_i; \theta^{(t)}} [\ln p(x_i,z_i ; \theta)]
-\end{align}
+\end{align*}
 $$
 
 ## Gaussian mixture with EM
@@ -216,10 +218,10 @@ $$\gamma_{ik} = q(z_i{=}k) = p(z_i{=}k \vert x_i;\theta) = \frac{p(x_i,z_i{=}k;\
 **Maximization step**: We maximize the complete log-likelihood
 
 $$
-\begin{align}
+\begin{align*}
 Q(\theta; \theta^{(t)}) &= \sum_i \text{E}_{z_i \vert x_i; \theta^{(t)}} [\ln p(x_i,z_i; \theta)] \\
 &= \sum_i \sum_k \gamma_k \ln \left( \pi_k \mathcal{N}(x_i; \mu_k, \sigma^2_k) \right)
-\end{align}
+\end{align*}
 $$
 
 To maximize this expression with respect to each of the parameters, we take the derivatives,
@@ -227,21 +229,21 @@ To maximize this expression with respect to each of the parameters, we take the 
 <!-- double check over partial derivative -->
 
 $$
-\begin{align}
+\begin{align*}
 \frac{\partial Q(\theta; \theta^{(t)})}{\partial \mu_k} &= 0 \\
 \frac{\partial Q(\theta; \theta^{(t)})}{\partial \sigma^2_k} &= 0 \\
 \frac{\partial Q(\theta; \theta^{(t)})}{\partial \pi_k} &= 0
-\end{align}
+\end{align*}
 $$
 
 The solution is,
 
 $$
-\begin{align}
+\begin{align*}
 \mu_k^{(t+1)} &= \frac{\Sigma_{i=1}^n \gamma_{ik}^{(t)} x_i}{\Sigma_{i=1}^n \gamma_{ik}^{(t)}} \\
 {\sigma^2}_k^{(t+1)} &= \frac{\Sigma_{i=1}^n \gamma_{ik}^{(t)} (x_i-\mu_k^{(t+1)})^2}{\Sigma_{i=1}^n \gamma_{ik}^{(t)}} \\
 \pi_k^{(t+1)} &= \frac{\Sigma_{i=1}^n \gamma_{ik}^{(t)}}{n} \\
-\end{align}
+\end{align*}
 $$
 
 with $$n$$ denoting the total number of observed data points.

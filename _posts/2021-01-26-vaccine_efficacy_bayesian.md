@@ -89,31 +89,31 @@ In the Bayesian framework, we want to know the posterior $$p(\text{VE}>0.3 \vert
 Remember, by Bayes' rule,
 
 $$
-\begin{align}
+\begin{align*}
 p(\theta \vert x) &\propto p(x \vert \theta) p(\theta) \\
 \text{posterior} &\propto \text{likelihood} \times \text{prior}
-\end{align}
+\end{align*}
 $$
 
 The data $$x$$ follows a binomial distribution, as we are asking the number of cases in the vaccinated group out of a total $$n$$ cases, with the probability of such cases being in the vaccinated group as $$\theta$$. We can define our prior for $$\theta$$ as following a beta distribution. Hence,
 
 $$
-\begin{align}
+\begin{align*}
 x &\sim \text{Bin}(n, \theta) \\
 \theta &\sim \text{Beta}(\alpha, \beta) \\
-\end{align}
+\end{align*}
 $$
 
 We can expand the expressions for our posterior, based on the likelihood and prior distributions,
 
 $$
-\begin{align}
+\begin{align*}
 p(\theta \vert x) &\propto p(x \vert \theta) p(\theta) \\
 &\propto \text{Bin}(c_v; n, \theta) \times \text{Beta}(\theta; \alpha, \beta) \\
 &\propto {n \choose c_v } \theta^{c_v} (1-\theta)^{c_p} \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \theta^{\alpha-1} (1-\theta)^{\beta-1} \\
 &\propto \theta^{c_v} (1-\theta)^{c_p} \theta^{\alpha-1} (1-\theta)^{\beta-1} \\
 &\propto \theta^{\alpha+c_v-1} (1-\theta)^{\beta+c_p-1} \\
-\end{align}
+\end{align*}
 $$
 
 But the last expression is just another beta distribution, so the posterior can be expressed as,

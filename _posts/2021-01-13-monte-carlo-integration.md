@@ -43,10 +43,10 @@ $$p(x)=1/(b-a)$$. If we substitute this into the above approximation expression,
 we see that,
 
 $$
-\begin{align}
+\begin{align*}
 I &= \int_a^b f(x) \,dx \\
 \hat{I} &= (b-a) \frac{1}{N} \sum_{i=1}^{N} f(x_i)
-\end{align}
+\end{align*}
 $$
 
 This is effectively calculating the mean value of $$f(x)$$ over the interval $$a$$

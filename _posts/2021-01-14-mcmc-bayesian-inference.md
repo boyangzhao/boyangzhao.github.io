@@ -68,12 +68,12 @@ By Bayes’ theorem,
 $$p(\theta|x) = \frac{p(x|\theta)p(\theta)}{p(x)} = \frac{p(x|\theta)p(\theta)}{\int p(x|\theta)p(\theta) \,d\theta}$$
 
 $$
-\begin{align}
+\begin{align*}
 &p(x|\theta) \text{ is the likelihood} \\
 &p(\theta) \text{ is the prior} \\
 &p(\theta|x) \text{ is the posterior} \\
 &p(x) \text{ is the evidence} \\
-\end{align}
+\end{align*}
 $$
 
 A brief note on notation: in some places, you will see the following notation
@@ -169,10 +169,10 @@ $$\ln{p(\theta|x)} \propto \ln{p(x|\theta)p(\theta)}$$
 Correspondingly, the acceptance ratio is,
 
 $$
-\begin{align}
+\begin{align*}
 r(\theta^*, \theta^{(t)}) &= \exp\left(\frac{\ln{f(\theta^*|x)}}{\ln{f(\theta^{(t)}|x)}}\right) \frac{q(\theta^{(t)}|\theta^*)}{q(\theta^*|\theta^{(t)})} \\
 &= \exp(\ln{f(\theta^*|x)} - \ln{f(\theta^{(t)}|x)}) \frac{q(\theta^{(t)}|\theta^*)}{q(\theta^*|\theta^{(t)})}
-\end{align}
+\end{align*}
 $$
 
 ## Metropolis-Hastings in python
