@@ -97,8 +97,8 @@ With $\phi_{1,2}$ and $\phi_i$, the main effects (Equation \ref{eq:phi_main}) ar
 
 $$
 \begin{align}
-\phi_{1,1} &= v(\{1\}) - v(\{\emptyset\} \label{eq:phi_11} \\
-\phi_{2,2} &= v(\{2\}) - v(\{\emptyset\} \label{eq:phi_22} 
+\phi_{1,1} &= v(\{1\}) - v(\{\emptyset\}) \label{eq:phi_11} \\
+\phi_{2,2} &= v(\{2\}) - v(\{\emptyset\}) \label{eq:phi_22} 
 \end{align}
 $$
 
