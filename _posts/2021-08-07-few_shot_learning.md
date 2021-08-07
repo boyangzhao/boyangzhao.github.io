@@ -103,6 +103,12 @@ $$
 \nabla_{\theta} \mathcal{L}(\phi, \mathcal{D}^{\text{ts}}) \approx \nabla_{\phi} \mathcal{L}(\phi, \mathcal{D}^{\text{ts}})
 $$
 
+This can be illustrated visually as follows,
+
+![](/images/fewshot_fomaml_1task.png){: .align-center}
+
+Note we are not performing a meta-gradient computation by unrolling all the way up the computation graph, but instead we are using the first-order approximation $\nabla_{\phi} \mathcal{L}(\phi, \mathcal{D}^{\text{ts}})$ as gradient for updating $\theta$.
+
 ### Reptile
 Reptile (by OpenAI)[^cite_reptile] is an alternative approach with performance on-par with MAML, but more computationally and memory efficient than MAML as there is no explicit calculations of the second derivatives.
 
@@ -128,7 +134,11 @@ $$
 
 where $\phi_i = U_{\tau_i}^k (\theta, \mathcal{D}^{\text{tr}})$
 
-In the vanilla stochastic gradient descent, the parameters are updated after each gradient step ($U^1$, where $k=1$). The key distinction that differentiates Reptile from it being just a regular stochastic gradient descent averaged across different tasks is the estimation of $\phi_i$ over $k>1$ steps and using $\phi_i - \theta$ as the gradient for updating $\theta$. The authors Nichol et al. have showed that when $k>1$, this allows the algorithm to pick up on the higher-order derivatives, and the consequent behavior is similar to MAML and distinctly different from when $k=1$.
+The parameters path can be schematically visualized as,
+
+![](/images/fewshot_reptile.png){: .align-center}
+
+The key distinction that differentiates Reptile from it being just a regular stochastic gradient descent averaged across different tasks is the estimation of $\phi_i$ over $k>1$ steps and using $\phi_i - \theta$ as the gradient for updating $\theta$. In the vanilla stochastic gradient descent, the parameters are updated after each gradient step ($U^1$, where $k=1$). The authors Nichol et al. have showed that when $k>1$, this allows the algorithm to pick up on the higher-order derivatives, and the consequent behavior is similar to MAML and distinctly different from when $k=1$.
 
 ## Resources
 - [Finn (2020) CS330 lectures](https://cs330.stanford.edu/#topics)
