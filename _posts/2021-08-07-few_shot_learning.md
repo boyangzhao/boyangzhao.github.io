@@ -143,7 +143,7 @@ The key distinction that differentiates Reptile from it being just a regular sto
 ## Resources
 - [Finn (2020) CS330 lectures](https://cs330.stanford.edu/#topics)
 - [Fast Forward Research (2020) Meta-learning](https://meta-learning.fastforwardlabs.com/)
-- [Polat (2020) blog post](https://medium.com/swlh/deep-learning-architectures-that-you-can-use-with-a-very-few-data-8e5b4fa1d5da)
+- [Ecoffet (2018) blog post](https://towardsdatascience.com/paper-repro-deep-metalearning-using-maml-and-reptile-fd1df1cc81b0)
 - [Weng (2018) blog post](https://meta-learning.fastforwardlabs.com/)
 - [Nicol & Schulman (2018) OpenAI blog post](https://openai.com/blog/reptile/)
 
