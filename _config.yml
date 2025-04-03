@@ -95,10 +95,10 @@ analytics:
 author:
   name             : "Boyang Zhao"
   avatar           : "/images/profile_BZ.png"
-  bio              : "Data scientist & manager, ING<br>
-                      Computational biology, genomics, machine learning, fintech<br>
+  bio              : "CEO/Co-founder, Seqker Biosciences, Inc<br>
+                      Computational biology, genomics, oncology, AI/ML<br>
                       @MIT PhD"
-  location         : "Netherlands"
+  location         : "Boston, USA"
   email            :
   linkedin         : "boyangzhao"
   twitter          : "boyangzhao"
@@ -286,7 +286,7 @@ defaults:
       related: false
       permalink: /posts/:title
       # toc: true
-      # toc_sticky: true  
+      # toc_sticky: true
       # classes: wide
   # _pages
   - scope:
